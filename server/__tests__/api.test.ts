@@ -1,7 +1,9 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll, beforeEach } from "vitest";
 import request from "supertest";
 import express from "express";
 import { registerRoutes } from "../routes";
+import { storage } from "../storage";
+import fs from "fs";
 
 describe("Credential API Tests", () => {
   let app: express.Express;

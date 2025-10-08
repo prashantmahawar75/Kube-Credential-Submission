@@ -48,23 +48,40 @@ export class SQLiteStorage implements IStorage {
   }
 
   storeCredential(credentialHash: string, credentialData: string, workerId: string): StoredCredential {
+    // First check if credential already exists (handles race conditions)
+    const existing = this.getCredentialByHash(credentialHash);
+    if (existing) {
+      return existing;
+    }
+
     const id = randomUUID();
     const issuedAt = new Date().toISOString();
     
-    const stmt = this.db.prepare(`
-      INSERT INTO credentials (id, credentialHash, credentialData, workerId, issuedAt)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-    
-    stmt.run(id, credentialHash, credentialData, workerId, issuedAt);
-    
-    return {
-      id,
-      credentialHash,
-      credentialData,
-      workerId,
-      issuedAt,
-    };
+    try {
+      const stmt = this.db.prepare(`
+        INSERT INTO credentials (id, credentialHash, credentialData, workerId, issuedAt)
+        VALUES (?, ?, ?, ?, ?)
+      `);
+      
+      stmt.run(id, credentialHash, credentialData, workerId, issuedAt);
+      
+      return {
+        id,
+        credentialHash,
+        credentialData,
+        workerId,
+        issuedAt,
+      };
+    } catch (error: any) {
+      // Handle unique constraint violation (race condition)
+      if (error.code === 'SQLITE_CONSTRAINT' || error.message?.includes('UNIQUE constraint')) {
+        const existing = this.getCredentialByHash(credentialHash);
+        if (existing) {
+          return existing;
+        }
+      }
+      throw error;
+    }
   }
 
   verifyCredential(credentialHash: string): StoredCredential | undefined {

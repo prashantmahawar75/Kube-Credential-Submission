@@ -13,8 +13,8 @@ export default function VerificationPage() {
 
   const verifyMutation = useMutation({
     mutationFn: async (credential: any) => {
-      const res = await apiRequest<VerificationResponse>("POST", "/api/verification/verify", { credential });
-      return res;
+      const res = await apiRequest("POST", "/api/verification/verify", { credential });
+      return await res.json() as VerificationResponse;
     },
     onSuccess: (data) => {
       setResponse(data);

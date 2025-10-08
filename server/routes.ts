@@ -40,20 +40,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Store new credential
+      // Store new credential (handles race conditions internally)
       const stored = storage.storeCredential(
         credentialHash,
         JSON.stringify(credential),
         currentWorkerId
       );
 
+      // Check if we got back an existing credential (race condition occurred)
+      const wasAlreadyIssued = stored.workerId !== currentWorkerId;
+
       return res.json({
         success: true,
-        message: `Credential issued by ${currentWorkerId}`,
+        message: wasAlreadyIssued 
+          ? `Credential already issued by ${stored.workerId}`
+          : `Credential issued by ${currentWorkerId}`,
         workerId: currentWorkerId,
         credential,
         timestamp: stored.issuedAt,
-        alreadyIssued: false,
+        alreadyIssued: wasAlreadyIssued,
       });
     } catch (error: any) {
       console.error("Issuance error:", error);

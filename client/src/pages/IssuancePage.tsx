@@ -13,8 +13,8 @@ export default function IssuancePage() {
 
   const issueMutation = useMutation({
     mutationFn: async (credential: any) => {
-      const res = await apiRequest<IssuanceResponse>("POST", "/api/issuance/issue", { credential });
-      return res;
+      const res = await apiRequest("POST", "/api/issuance/issue", { credential });
+      return await res.json() as IssuanceResponse;
     },
     onSuccess: (data) => {
       setResponse(data);
