@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-credential-issuance
+  labels:
+    app: kube-credential
+    service: issuance
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kube-credential
+      service: issuance
+  template:
+    metadata:
+      labels:
+        app: kube-credential
+        service: issuance
+    spec:
+      containers:
+      - name: kube-credential
+        image: kube-credential:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "5000"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 5000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-credential-issuance
+  labels:
+    app: kube-credential
+    service: issuance
+spec:
+  selector:
+    app: kube-credential
+    service: issuance
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+    name: http
+  type: ClusterIP

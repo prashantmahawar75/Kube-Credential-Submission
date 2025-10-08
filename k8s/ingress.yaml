@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kube-credential-ingress
+  labels:
+    app: kube-credential
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - kube-credential.example.com
+    secretName: kube-credential-tls
+  rules:
+  - host: kube-credential.example.com
+    http:
+      paths:
+      - path: /api/issuance
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-credential-issuance
+            port:
+              number: 80
+      - path: /api/verification
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-credential-verification
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kube-credential-issuance
+            port:
+              number: 80
