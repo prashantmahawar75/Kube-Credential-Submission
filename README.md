@@ -758,6 +758,20 @@ MIT License - See LICENSE file for details
 - Development Team - Initial implementation
 - Architecture decisions documented in this README
 
+## 📞 Contact Information
+
+**Candidate Details:**
+- **Name**: [YOUR NAME HERE]
+- **Email**: [YOUR EMAIL HERE]
+- **Phone**: [YOUR CONTACT NUMBER HERE]
+
+**Deployment URL:**
+- **Live Application**: [YOUR DEPLOYMENT URL HERE]
+
+**Submission Date**: [DATE]
+
+---
+
 ## 🤝 Support
 
 For issues, questions, or contributions:
@@ -768,3 +782,33 @@ For issues, questions, or contributions:
 ---
 
 **Built with ❤️ using TypeScript, React, and Express.js**
+
+## 📋 Assignment Submission
+
+This project was developed as part of the Zupple Labs Pvt. Ltd. Full Stack Engineer assignment for the "Kube Credential" system.
+
+**Assignment Requirements Met:**
+- ✅ Node.js (TypeScript) backend API
+- ✅ Docker containerization
+- ✅ Two microservices (Issuance & Verification)
+- ✅ React (TypeScript) frontend with two pages
+- ✅ Independent scalability design
+- ✅ JSON credential handling
+- ✅ Worker ID tracking (format: worker-n)
+- ✅ Duplicate detection
+- ✅ SQLite persistence layer
+- ✅ Comprehensive unit tests (11/11 passing)
+- ✅ Kubernetes manifests (deployments, services, HPA, ingress)
+- ✅ Complete documentation
+- ✅ Error handling and UI feedback
+
+**Test Results:**
+```
+Test Files  2 passed (2)
+Tests       11 passed (11)
+Duration    ~3s
+```
+
+**Deployment Platform**: [AWS/Render/Railway - SPECIFY HERE]
+
+**Repository Structure**: See [Project Structure](#-project-structure) section above

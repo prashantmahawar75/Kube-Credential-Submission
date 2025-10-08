@@ -8,8 +8,14 @@ import fs from "fs";
 describe("Credential API Tests", () => {
   let app: express.Express;
   let server: any;
+  const testDbPath = "test-credentials.db";
 
   beforeAll(async () => {
+    // Clean up test database if it exists
+    if (fs.existsSync(testDbPath)) {
+      fs.unlinkSync(testDbPath);
+    }
+    
     app = express();
     app.use(express.json());
     server = await registerRoutes(app);
@@ -18,6 +24,10 @@ describe("Credential API Tests", () => {
   afterAll(() => {
     if (server) {
       server.close();
+    }
+    // Clean up test database
+    if (fs.existsSync(testDbPath)) {
+      fs.unlinkSync(testDbPath);
     }
   });
 
