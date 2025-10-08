@@ -761,46 +761,14 @@ MIT License - See LICENSE file for details
 ## 📞 Contact Information
 
 **Candidate Details:**
-- **Name**: [YOUR NAME HERE]
-- **Email**: [YOUR EMAIL HERE]
-- **Phone**: [YOUR CONTACT NUMBER HERE]
+- **Name**: Prashant Mahawar
+- **Email**: prashantmahawar75@gmail.com
 
 **Deployment URL:**
-- **Live Application**: [YOUR DEPLOYMENT URL HERE]
-
-**Submission Date**: [DATE]
+- **Live Application**:https://kube-credential-submission.onrender.com
 
 ---
 
-## 🤝 Support
-
-For issues, questions, or contributions:
-- Create an issue in the repository
-- Contact the development team
-- Review the test suite for usage examples
-
----
-
-**Built with ❤️ using TypeScript, React, and Express.js**
-
-## 📋 Assignment Submission
-
-This project was developed as part of the Zupple Labs Pvt. Ltd. Full Stack Engineer assignment for the "Kube Credential" system.
-
-**Assignment Requirements Met:**
-- ✅ Node.js (TypeScript) backend API
-- ✅ Docker containerization
-- ✅ Two microservices (Issuance & Verification)
-- ✅ React (TypeScript) frontend with two pages
-- ✅ Independent scalability design
-- ✅ JSON credential handling
-- ✅ Worker ID tracking (format: worker-n)
-- ✅ Duplicate detection
-- ✅ SQLite persistence layer
-- ✅ Comprehensive unit tests (11/11 passing)
-- ✅ Kubernetes manifests (deployments, services, HPA, ingress)
-- ✅ Complete documentation
-- ✅ Error handling and UI feedback
 
 **Test Results:**
 ```
