@@ -777,6 +777,6 @@ Tests       11 passed (11)
 Duration    ~3s
 ```
 
-**Deployment Platform**: [AWS/Render/Railway - SPECIFY HERE]
+**Deployment Platform**: Render
 
 **Repository Structure**: See [Project Structure](#-project-structure) section above
